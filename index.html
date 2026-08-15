@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 Draft Board — Full PPR</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-mark">⬤</span>
+      <div class="brand-text">
+        <h1>Draft Board</h1>
+        <p><span id="leagueSubtitle">10-team</span> · Full PPR · 2026</p>
+      </div>
+    </div>
+
+    <div class="view-toggle" role="tablist" aria-label="Board view">
+      <button class="toggle-btn active" data-view="overall" role="tab" aria-selected="true">Overall</button>
+      <button class="toggle-btn" data-view="position" role="tab" aria-selected="false">By Position</button>
+    </div>
+
+    <div class="league-toggle" role="group" aria-label="League size">
+      <span class="league-toggle-label">Teams</span>
+      <button class="league-btn active" data-teams="10">10</button>
+      <button class="league-btn" data-teams="12">12</button>
+    </div>
+
+    <div class="topbar-controls">
+      <input id="searchBox" type="search" placeholder="Search players…" aria-label="Search players">
+      <span class="drafted-counter" id="draftedCounter">0 / 152 drafted</span>
+      <button id="resetBtn" class="btn-ghost" title="Clear drafted marks and restore original order/tiers">Reset board</button>
+    </div>
+  </div>
+</header>
+
+<main id="app">
+  <section id="overallView" class="view active">
+    <div class="overall-list-header">
+      <span class="col-drag"></span>
+      <span class="col-check"></span>
+      <span class="col-rank">Rk</span>
+      <span class="col-player">Player</span>
+      <span class="col-pos">Pos</span>
+      <span class="col-pick">Pick</span>
+      <span class="col-adp">ADP</span>
+      <span class="col-flag"></span>
+    </div>
+    <ul id="overallList" class="overall-list"></ul>
+  </section>
+
+  <section id="positionView" class="view">
+    <div class="pos-columns" id="posColumns"></div>
+  </section>
+</main>
+
+<footer class="foot">
+  <p>Overall tab: drag a row to change its rank — that's the one source of truth for player order. By Position tab: order follows Overall automatically; drag a tier line's ⠿ handle to move it. Click any player to mark them drafted, it's shared across both tabs. Everything saves automatically in this browser.</p>
+</footer>
+
+<div id="dragGhostStyles"></div>
+
+<script src="vendor/Sortable.min.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
