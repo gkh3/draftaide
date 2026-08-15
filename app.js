@@ -108,8 +108,8 @@ function espnFlagHTML(p) {
   return "";
 }
 
-function roundPick(adp, teams) {
-  const overall = Math.max(1, Math.round(adp));
+function roundPick(rank, teams) {
+  const overall = Math.max(1, rank);
   const rnd = Math.floor((overall - 1) / teams) + 1;
   const pickInRound = ((overall - 1) % teams) + 1;
   return `${rnd}.${String(pickInRound).padStart(2, "0")}`;
@@ -154,7 +154,7 @@ function renderOverall() {
         <span class="player-team">${p.team}</span>
       </span>
       <span class="pos-chip ${p.pos}">${p.pos}</span>
-      <span class="pick-val">${roundPick(p.adp, state.teams)}</span>
+      <span class="pick-val">${roundPick(idx + 1, state.teams)}</span>
       <span class="adp-val">${p.adp}</span>
       ${espnFlagHTML(p)}
     `;
@@ -222,6 +222,9 @@ function renderPositionView() {
   const wrap = document.getElementById("posColumns");
   wrap.innerHTML = "";
 
+  const globalRank = {};
+  state.overallOrder.forEach((id, i) => { globalRank[id] = i + 1; });
+
   POSITIONS.forEach(pos => {
     const { ids, breaks, bounds } = tierBoundsForPos(pos);
 
@@ -286,7 +289,7 @@ function renderPositionView() {
           <span class="chk">${checkmarkSVG()}</span>
           <span class="pos-card-info">
             <div class="pos-card-name">${p.name}</div>
-            <div class="pos-card-meta">${p.team} · ADP ${p.adp} · ${roundPick(p.adp, state.teams)}</div>
+            <div class="pos-card-meta">${p.team} · ADP ${p.adp} · ${roundPick(globalRank[id], state.teams)}</div>
           </span>
         `;
         li.addEventListener("click", () => toggleDrafted(id));
